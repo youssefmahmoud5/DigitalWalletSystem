@@ -3,6 +3,7 @@
 #include "user.h"
 #include "DigitalWalletSystem.h"
 #include "admin.h"
+#include "Files.h"
 using namespace std;
 
 int main() {
@@ -10,6 +11,9 @@ int main() {
     int choice;
     bool repeat;
     do {
+        Files f;
+        f.loadUsersFromFile(DigitalWalletSystem::mapOfUsers);
+        f.loadSystemTransactionsFromFile();
         cout << "\n===== Main Menu =====" << endl;
         cout << "1. Admin" << endl;
         cout << "2. User" << endl;
@@ -58,6 +62,8 @@ int main() {
         }
         case 0:
             cout << "Exiting program..." << endl;
+            f.saveSystemTransactionsToFile();
+            f.saveUsersToFile(DigitalWalletSystem::mapOfUsers);
             break;
         default:
             cout << "Invalid main menu choice." << endl;

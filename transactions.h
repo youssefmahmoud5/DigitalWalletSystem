@@ -11,8 +11,9 @@ public:
 	double amount;
 	string DateAndTime;
 	string type;
-	transactions(string senderFirstName, string recieverFirstName, double amount1, string DateAndTime1, string type1);
-	transactions(string recieverFirstName, double amount1, string DateAndTime1, string type1);
+	transactions();
+	transactions(string type1, string senderFirstName, string recieverFirstName, double amount1, string DateAndTime1);
+	transactions(string type1,string recieverFirstName, double amount1, string DateAndTime1);
 };
 
 

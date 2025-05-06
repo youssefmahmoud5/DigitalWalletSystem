@@ -41,8 +41,8 @@ void user::Deposite() {
 	double amount;
 	cin >> amount;
 	balance = balance + amount;
-	transactionstack.push(transactions(Firstname, amount, getCurrentDateTime(), "Deposite"));
-	DigitalWalletSystem::SystemTransactions.push(transactions(Firstname, amount, getCurrentDateTime(), "Deposite"));
+	transactionstack.push(transactions("Deposite",Firstname, amount, getCurrentDateTime()));
+	DigitalWalletSystem::SystemTransactions.push(transactions("Deposite",Firstname, amount, getCurrentDateTime()));
 }
 
 void user::SendMoney()
@@ -98,11 +98,11 @@ void user::SendMoney()
 
 	balance -= amount;
 	DigitalWalletSystem::mapOfUsers[un].balance += amount;
-	transactionstack.push(transactions(Firstname, DigitalWalletSystem::mapOfUsers[un].Firstname, amount, getCurrentDateTime(), "Send"));
-	DigitalWalletSystem::mapOfUsers[un].transactionstack.push(transactions(Firstname,
-		DigitalWalletSystem::mapOfUsers[un].Firstname, amount, getCurrentDateTime(), "Recieve"));
+	transactionstack.push(transactions("Send",Firstname, DigitalWalletSystem::mapOfUsers[un].Firstname, amount, getCurrentDateTime()));
+	DigitalWalletSystem::mapOfUsers[un].transactionstack.push(transactions("Recieve",Firstname,
+		DigitalWalletSystem::mapOfUsers[un].Firstname, amount, getCurrentDateTime()));
 	cout << "Money sent successfully to " << DigitalWalletSystem::mapOfUsers[un].Firstname << " " << DigitalWalletSystem::mapOfUsers[un].Lastname << ".";
-	DigitalWalletSystem::SystemTransactions.push(transactions(Firstname, DigitalWalletSystem::mapOfUsers[un].Firstname, amount, getCurrentDateTime(), "Send"));
+	DigitalWalletSystem::SystemTransactions.push(transactions("Send",Firstname, DigitalWalletSystem::mapOfUsers[un].Firstname, amount, getCurrentDateTime()));
 }
 
 void user::Requestapproval()
@@ -138,11 +138,11 @@ void user::Requestapproval()
 							cout << "The request is accepted." << endl;
 							DigitalWalletSystem::mapOfUsers[r.username].balance += r.amount;
 							RequestsQueue.pop();
-							transactionstack.push(transactions(Firstname, DigitalWalletSystem::mapOfUsers[r.username].Firstname, r.amount, getCurrentDateTime(), "Send"));
-							DigitalWalletSystem::mapOfUsers[r.username].transactionstack.push(transactions(Firstname,
-								DigitalWalletSystem::mapOfUsers[r.username].Firstname, r.amount, getCurrentDateTime(), "Recieve"));
+							transactionstack.push(transactions("Send",Firstname, DigitalWalletSystem::mapOfUsers[r.username].Firstname, r.amount, getCurrentDateTime()));
+							DigitalWalletSystem::mapOfUsers[r.username].transactionstack.push(transactions("Recieve",Firstname,
+								DigitalWalletSystem::mapOfUsers[r.username].Firstname, r.amount, getCurrentDateTime()));
 							cout << "Money sent successfully to " << DigitalWalletSystem::mapOfUsers[r.username].Firstname << " " << DigitalWalletSystem::mapOfUsers[r.username].Lastname << ".";
-							DigitalWalletSystem::SystemTransactions.push(transactions(Firstname, DigitalWalletSystem::mapOfUsers[r.username].Firstname, r.amount, getCurrentDateTime(), "Send"));
+							DigitalWalletSystem::SystemTransactions.push(transactions("Send",Firstname, DigitalWalletSystem::mapOfUsers[r.username].Firstname, r.amount, getCurrentDateTime()));
 						}
 						else {
 							cout << "Insufficient balance " << endl;

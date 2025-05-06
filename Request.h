@@ -12,6 +12,7 @@ public:
 	double amount;
 	string DateAndTime;
 	string phonenumber;
+	Request();
 	Request( string FirstName1, string LastName1,string phonenumber1, double amount1, string DateAndTime1);
 
 };
