@@ -25,6 +25,7 @@ string user::getpassword()
 {
 	return password;
 }
+
 void user::ViewBalance() {
 	cout << "Your current balance: " << balance << endl;
 }
@@ -39,10 +40,32 @@ string user::getCurrentDateTime() {
 void user::Deposite() {
 	cout << "Enter the amount: ";
 	double amount;
-	cin >> amount;
+	bool repeat;
+	do {
+		repeat = false;
+		cin >> amount;
+		if (cin.fail()) {
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			cout << "Invalid input. Please enter a valid integer. " << endl;
+			repeat = true;
+			continue;
+		}
+		if (amount <= 0) {
+			cout << "Invalid amount." << endl;
+			cout << "Press E to exit or press any buttom to reenter the amount ";
+			char s;
+			cin >> s;
+			if (s == 'E' || s == 'e') {
+				return;
+			}
+			repeat = true;
+		}
+	} while (repeat);
 	balance = balance + amount;
-	transactionstack.push(transactions("Deposite",Firstname, amount, getCurrentDateTime()));
-	DigitalWalletSystem::SystemTransactions.push(transactions("Deposite",Firstname, amount, getCurrentDateTime()));
+	transactionstack.push(transactions("Deposite", Firstname, amount, getCurrentDateTime()));
+	DigitalWalletSystem::SystemTransactions.push(transactions("Deposite", Firstname, amount, getCurrentDateTime()));
+
 }
 
 void user::SendMoney()
@@ -71,9 +94,16 @@ void user::SendMoney()
 		repeat = false;
 		cout << "Enter amount to send: ";
 		cin >> amount;
+		if (cin.fail()) {
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			cout << "Invalid input. Please enter a valid integer. " << endl;
+			repeat = true;
+			continue;
+		}
 		if (amount <= 0) {
 			cout << "Invalid amount." << endl;
-			cout << "Press E to exit or press any buttom to reenter the amount";
+			cout << "Press E to exit or press any buttom to reenter the amount ";
 			char s;
 			cin >> s;
 			if (s == 'E' || s == 'e') {
@@ -101,8 +131,9 @@ void user::SendMoney()
 	transactionstack.push(transactions("Send",Firstname, DigitalWalletSystem::mapOfUsers[un].Firstname, amount, getCurrentDateTime()));
 	DigitalWalletSystem::mapOfUsers[un].transactionstack.push(transactions("Recieve",Firstname,
 		DigitalWalletSystem::mapOfUsers[un].Firstname, amount, getCurrentDateTime()));
-	cout << "Money sent successfully to " << DigitalWalletSystem::mapOfUsers[un].Firstname << " " << DigitalWalletSystem::mapOfUsers[un].Lastname << ".";
+	cout << "Money sent successfully to " << DigitalWalletSystem::mapOfUsers[un].Firstname << " " << DigitalWalletSystem::mapOfUsers[un].Lastname << "." << endl;
 	DigitalWalletSystem::SystemTransactions.push(transactions("Send",Firstname, DigitalWalletSystem::mapOfUsers[un].Firstname, amount, getCurrentDateTime()));
+
 }
 
 void user::Requestapproval()
@@ -128,7 +159,7 @@ void user::Requestapproval()
 					cin >> response;
 					if (cin.fail()) {
 						cin.clear();
-						cin.ignore(numeric_limits<streamsize>::max());
+						cin.ignore(numeric_limits<streamsize>::max(), '\n');
 						cout << "Invalid input. Please enter a valid integer. " << endl;
 						repeat = true;
 						continue;
@@ -158,7 +189,7 @@ void user::Requestapproval()
 						cin >> choice;
 						if (cin.fail()) {
 							cin.clear();
-							cin.ignore(numeric_limits<streamsize>::max());
+							cin.ignore(numeric_limits<streamsize>::max(), '\n');
 							cout << "Invalid input. Please enter a valid integer. " << endl;
 							repeat = true;
 							continue;
@@ -201,6 +232,13 @@ void user::RequestMoney()
 		repeat = false;
 		cout << "Enter amount to send: ";
 		cin >> amount;
+		if (cin.fail()) {
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			cout << "Invalid input. Please enter a valid integer. " << endl;
+			repeat = true;
+			continue;
+		}
 		if (amount <= 0) {
 			cout << "Invalid amount." << endl;
 			cout << "Press E to exit or press any buttom to reenter the amount";
@@ -231,6 +269,7 @@ void user::TransactionsHistory()
 			cout << "Transaction Type : " << t.type << endl;
 			cout << "Paid: " << t.amount << endl;
 			if (t.type != "Deposite") {
+				cout << "From: " << t.sender << endl;
 				cout << "To: " << t.reciever << endl;
 			}
 			cout << "Date and Time: " << t.DateAndTime << endl;
@@ -262,7 +301,7 @@ void user::EditProfile()
 		cin >> choice;
 		if (cin.fail()) {
 			cin.clear();
-			cin.ignore(numeric_limits<streamsize>::max());
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			cout << "Invalid input. Please enter a valid integer. " << endl;
 			repeat = true;
 		}
@@ -283,7 +322,7 @@ void user::EditProfile()
 		break;
 	case 2:
 		cout << "Enter new password: ";
-		password = DigitalWalletSystem::checkPassword();
+		password = DigitalWalletSystem::hashing(DigitalWalletSystem::checkPassword());
 		cout << "The password has successefully changed" << endl;
 		break;
 	case 3:
@@ -318,7 +357,7 @@ void user::Usermenu()
 			cin >> choice;
 			if (cin.fail()) {
 				cin.clear();
-				cin.ignore(numeric_limits<streamsize>::max());
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
 				cout << "Invalid input. Please enter a valid integer. " << endl;
 				repeat = true;
 			}

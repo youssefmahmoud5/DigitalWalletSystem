@@ -68,6 +68,7 @@ void Files::saveUsersToFile(const unordered_map<string, user>& users) {
         cerr << "Could not open file to write.\n";
         return;
     }
+    
 
     for (const auto& pair : users) {
         const user& u = pair.second;
@@ -123,6 +124,9 @@ void Files::loadSystemTransactionsFromFile()
         cerr << "Could not open file.\n";
         return;
     }
+    while (!DigitalWalletSystem::SystemTransactions.empty()) {
+        DigitalWalletSystem::SystemTransactions.pop();
+    }
     int numTransactions;
     string line;
 
@@ -150,7 +154,6 @@ void Files::saveSystemTransactionsToFile()
         cerr << "Could not open file to write.\n";
         return;
     }
-
     stack<transactions> tempStack = DigitalWalletSystem::SystemTransactions;
     vector<transactions> reversed;
     while (!tempStack.empty()) {

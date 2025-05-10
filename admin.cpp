@@ -27,7 +27,7 @@ void admin::AdminMenu()
 			cin >> choice;
 			if (cin.fail()) {
 				cin.clear();
-				cin.ignore(numeric_limits<streamsize>::max());
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
 				cout << "Invalid input. Please enter a valid integer. " << endl;
 				repeat = true;
 			}
@@ -82,14 +82,7 @@ void admin::viewUsers()
 void admin::editAccounts()
 {
 	string uname;
-	cout << "Enter username to edit: ";
-	cin >> uname;
-
-	auto it = DigitalWalletSystem::mapOfUsers.find(uname);
-	if (it == DigitalWalletSystem::mapOfUsers.end()) {
-		cout << "User not found." << endl;
-		return;
-	}
+	
 	int choice;
 	bool repeat;
 	cout << "Press 1 to Add user" << endl;
@@ -101,7 +94,7 @@ void admin::editAccounts()
 		cin >> choice;
 		if (cin.fail()) {
 			cin.clear();
-			cin.ignore(numeric_limits<streamsize>::max());
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			cout << "Invalid input. Please enter a valid integer. " << endl;
 			repeat = true;
 		}
@@ -112,11 +105,22 @@ void admin::editAccounts()
 	} while (repeat);
 	string newname;
 	string ltname;
+	if (choice == 2) {
+		cout << "Enter username to edit: ";
+		cin >> uname;
+
+		auto it = DigitalWalletSystem::mapOfUsers.find(uname);
+		if (it == DigitalWalletSystem::mapOfUsers.end()) {
+			cout << "User not found." << endl;
+			return;
+		}
+	}
 	switch (choice) {
 	case 1:
 		DigitalWalletSystem::SignUp();
 		break;
 	case 2:
+		
 		int choice1;
 		cout << "Press 1 To edit the Name " << endl;
 		cout << "Press 2 To edit the Password " << endl;
@@ -129,7 +133,7 @@ void admin::editAccounts()
 			cin >> choice1;
 			if (cin.fail()) {
 				cin.clear();
-				cin.ignore(numeric_limits<streamsize>::max());
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
 				cout << "Invalid input. Please enter a valid integer. " << endl;
 				repeat = true;
 			}
@@ -138,7 +142,7 @@ void admin::editAccounts()
 				repeat = true;
 			}
 		} while (repeat);
-		switch (choice) {
+		switch (choice1) {
 		case 1:
 			cout << "Enter new Firstname: ";
 			cin >> newname;
@@ -150,7 +154,7 @@ void admin::editAccounts()
 			break;
 		case 2:
 			cout << "Enter new password: ";
-			DigitalWalletSystem::mapOfUsers[uname].password = DigitalWalletSystem::checkPassword();
+			DigitalWalletSystem::mapOfUsers[uname].password = DigitalWalletSystem::hashing(DigitalWalletSystem::checkPassword());
 			cout << "The password has successefully changed" << endl;
 			break;
 		case 3:

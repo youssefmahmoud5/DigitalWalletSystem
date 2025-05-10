@@ -16,7 +16,7 @@ stack<transactions> DigitalWalletSystem::SystemTransactions;
 	bool repeat = false;
 	string username;
 	do{
-		bool repeat = false;
+		repeat = false;
 		cin >> username;
 		if (mapOfUsers.find(username) != mapOfUsers.end()) {
 			cout << "Username already exists...Please enter another one." << endl;
@@ -24,7 +24,7 @@ stack<transactions> DigitalWalletSystem::SystemTransactions;
 		}
 	} while (repeat);
 	cout << "Enter password: ";
-	string password = checkPassword();
+	string password = hashing(checkPassword());
 	cout << "Enter phone number: ";
 	string phoneNumber = checkPhoneNUmber();
 	user newuser = user(username,firstname, lastname, password, phoneNumber,false,false);
@@ -63,6 +63,7 @@ stack<transactions> DigitalWalletSystem::SystemTransactions;
 		 repeat = false;
 		 cout << "Password: ";
 		 cin >> password;
+		 password = hashing(password);
 		 if (!(mapOfUsers[username].getpassword() == password)) {
 			 cout << "Incorrect Password" << endl;
 			 cout << "Press E to exit or press any buttom to reenter Password";
@@ -91,6 +92,16 @@ stack<transactions> DigitalWalletSystem::SystemTransactions;
 	 }
 	 cout << "Incorrect credentials.\n";
 	 return;
+ }
+
+ string DigitalWalletSystem::hashing(string password1)
+ {
+	 string hash;
+	 for (char c : password1) {
+		 int hashedpass = static_cast<int>(c) + 20;
+		 hash += std::to_string(hashedpass);
+	 }
+	 return hash;
  }
  
 

@@ -10,10 +10,10 @@ int main() {
 
     int choice;
     bool repeat;
+    Files f;
+    f.loadUsersFromFile(DigitalWalletSystem::mapOfUsers);
+    f.loadSystemTransactionsFromFile();
     do {
-        Files f;
-        f.loadUsersFromFile(DigitalWalletSystem::mapOfUsers);
-        f.loadSystemTransactionsFromFile();
         cout << "\n===== Main Menu =====" << endl;
         cout << "1. Admin" << endl;
         cout << "2. User" << endl;
@@ -24,7 +24,7 @@ int main() {
             cin >> choice;
             if (cin.fail()) {
                 cin.clear();
-                cin.ignore(numeric_limits<streamsize>::max());
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 cout << "Invalid input. Please enter a valid integer. " << endl;
                 repeat = true;
             }
@@ -44,7 +44,7 @@ int main() {
                 cin >> userChoice;
                 if (cin.fail()) {
                     cin.clear();
-                    cin.ignore(numeric_limits<streamsize>::max());
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
                     cout << "Invalid input. Please enter a valid integer. " << endl;
                     repeat = true;
                 }

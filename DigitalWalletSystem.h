@@ -13,6 +13,7 @@ public:
 	static void SignUp();
 	static void login();
 	static void AdminLogin();
+	static string hashing(string password1);
 	static string checkPassword();
 	static string checkPhoneNUmber();
 };
