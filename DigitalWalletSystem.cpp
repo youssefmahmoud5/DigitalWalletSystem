@@ -32,7 +32,7 @@ stack<transactions> DigitalWalletSystem::SystemTransactions;
 	cout << "Sign up Completed" << endl;
  }
  void DigitalWalletSystem::login() {
-	 string username, password;
+	 string username, password1;
 	 bool repeat = false;
 	 do {
 		 repeat = false;
@@ -62,9 +62,9 @@ stack<transactions> DigitalWalletSystem::SystemTransactions;
 	 do {
 		 repeat = false;
 		 cout << "Password: ";
-		 cin >> password;
-		 password = hashing(password);
-		 if (!(mapOfUsers[username].getpassword() == password)) {
+		 cin >> password1;
+		 password1 = hashing(password1);
+		 if (!(mapOfUsers[username].password == password1)) {
 			 cout << "Incorrect Password" << endl;
 			 cout << "Press E to exit or press any buttom to reenter Password. ";
 			 char s;
@@ -150,7 +150,7 @@ stack<transactions> DigitalWalletSystem::SystemTransactions;
 	 do {
 		 repeat = false;
 		 cin >> phoneNumber;
-		 regex phoneTest(R"(01\d{9})");
+		 regex phoneTest(R"(01[0125]\d{8})");
 		 if (!regex_match(phoneNumber, phoneTest)) {
 			 cout << "Invalid phone number format. Please enter an 11-digit number starting with 01: ";
 			 repeat = true;

@@ -23,8 +23,6 @@ public:
 	user();
 	user(string username1,string Firstname1, string Lastname1,string password1, string phonenumber1,bool isDeleted1,bool isSuspended1);
 	string getCurrentDateTime();
-	double getbalance();
-	string getpassword();
 	void ViewBalance();
 	void Deposite();
 	void SendMoney();

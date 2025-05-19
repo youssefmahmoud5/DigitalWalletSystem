@@ -18,13 +18,6 @@ user::user(string username1, string Firstname1, string Lastname1, string passwor
 	isDeleted = isDeleted1;
 	isSuspended = isSuspended1;
 }
-double user::getbalance(){
-	return balance;
-}
-string user::getpassword()
-{
-	return password;
-}
 
 void user::ViewBalance() {
 	cout << "Your current balance: " << balance << endl;
