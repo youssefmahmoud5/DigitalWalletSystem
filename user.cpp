@@ -53,7 +53,7 @@ void user::Deposite() {
 		}
 		if (amount <= 0) {
 			cout << "Invalid amount." << endl;
-			cout << "Press E to exit or press any buttom to reenter the amount ";
+			cout << "Press E to exit or press any buttom to reenter the amount. ";
 			char s;
 			cin >> s;
 			if (s == 'E' || s == 'e') {
@@ -79,8 +79,8 @@ void user::SendMoney()
 		cin >> un;
 		auto it = DigitalWalletSystem::mapOfUsers.find(un);
 		if (it == DigitalWalletSystem::mapOfUsers.end()) {
-			cout << "User not found. Please Renter the username or return to the mainmenu." << endl;
-			cout << "Press E to exit or press any buttom to reenter username";
+			cout << "User not found. Please Renter the username or return to the mainmenu. " << endl;
+			cout << "Press E to exit or press any buttom to reenter username. ";
 			char s;
 			cin >> s;
 			if (s == 'E' || s == 'e') {
@@ -103,7 +103,7 @@ void user::SendMoney()
 		}
 		if (amount <= 0) {
 			cout << "Invalid amount." << endl;
-			cout << "Press E to exit or press any buttom to reenter the amount ";
+			cout << "Press E to exit or press any buttom to reenter the amount. ";
 			char s;
 			cin >> s;
 			if (s == 'E' || s == 'e') {
@@ -115,7 +115,7 @@ void user::SendMoney()
 
 		if (amount > balance) {
 			cout << "Insufficient balance.";
-			cout << "Press E to exit or press any buttom to reenter the amount";
+			cout << "Press E to exit or press any buttom to reenter the amount. ";
 			char s;
 			cin >> s;
 			if (s == 'E' || s == 'e') {
@@ -166,7 +166,7 @@ void user::Requestapproval()
 					}
 					if (response == 1) {
 						if (balance >= r.amount) {
-							cout << "The request is accepted." << endl;
+							cout << "The request is accepted. " << endl;
 							DigitalWalletSystem::mapOfUsers[r.username].balance += r.amount;
 							RequestsQueue.pop();
 							transactionstack.push(transactions("Send",Firstname, DigitalWalletSystem::mapOfUsers[r.username].Firstname, r.amount, getCurrentDateTime()));
@@ -218,8 +218,8 @@ void user::RequestMoney()
 		cin >> un;
 		auto it = DigitalWalletSystem::mapOfUsers.find(un);
 		if (it == DigitalWalletSystem::mapOfUsers.end()) {
-			cout << "User not found. Please Renter the username or return to the mainmenu." << endl;
-			cout << "Press E to exit or press any buttom to reenter username";
+			cout << "User not found. Please Renter the username or return to the mainmenu. " << endl;
+			cout << "Press E to exit or press any buttom to reenter username. ";
 			char s;
 			cin >> s;
 			if (s == 'E' || s == 'e') {
@@ -241,7 +241,7 @@ void user::RequestMoney()
 		}
 		if (amount <= 0) {
 			cout << "Invalid amount." << endl;
-			cout << "Press E to exit or press any buttom to reenter the amount";
+			cout << "Press E to exit or press any buttom to reenter the amount. ";
 			char s;
 			cin >> s;
 			if (s == 'E' || s == 'e') {
@@ -388,7 +388,7 @@ void user::Usermenu()
 			cout << "Exiting user menu..." << endl;
 			break;
 		default:
-			cout << "Invalid choice. Please try again." << endl;
+			cout << "Invalid choice. Please try again. " << endl;
 		}
 	} while (choice != 0);
 }

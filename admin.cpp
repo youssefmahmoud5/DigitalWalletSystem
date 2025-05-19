@@ -88,7 +88,8 @@ void admin::editAccounts()
 	cout << "Press 1 to Add user" << endl;
 	cout << "Press 2 to edit user" << endl;
 	cout << "Press 3 to change Suspendation status" << endl;
-	cout << "Press 4 to exit" << endl;
+	cout << "Press 4 to delete Account" << endl;
+	cout << "Press 5 to exit" << endl;
 	do {
 		repeat = false;
 		cin >> choice;
@@ -193,6 +194,20 @@ void admin::editAccounts()
 		}
 		break;
 	case 4:
+		if (DigitalWalletSystem::mapOfUsers[uname].isDeleted) {
+			cout << "The account is account was already deleted suspended..." << endl;
+		}
+		else {
+			cout << "The account is Activated...Do you want to Delete the account" << endl;
+			cout << "Press Y to delete or any another Letter to exit: ";
+			char c;
+			cin >> c;
+			if (c == 'Y' || c == 'y') {
+				DigitalWalletSystem::mapOfUsers[uname].isDeleted = true;
+			}
+		}
+		break;
+	case 5:
 		return;
 	}
 }

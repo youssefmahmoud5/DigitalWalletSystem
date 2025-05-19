@@ -41,7 +41,7 @@ stack<transactions> DigitalWalletSystem::SystemTransactions;
 		 auto it = mapOfUsers.find(username);
 		 if (it == mapOfUsers.end()) {
 			 cout << "User not found. Please Renter the username or sign up first." << endl;
-			 cout << "Press S to signup or press any buttom to reenter username";
+			 cout << "Press S to signup or press any buttom to reenter username. ";
 			 char s;
 			 cin >> s;
 			 if (s == 'S' || s == 's') {
@@ -51,7 +51,7 @@ stack<transactions> DigitalWalletSystem::SystemTransactions;
 		 }
 	 }while (repeat);
 	 if (mapOfUsers[username].isDeleted) {
-		 cout << "Your account have been deleted by the admin";
+		 cout << "Your account have been deleted by the admin" << endl;
 		 return;
 	 }
 	 if (mapOfUsers[username].isSuspended) {
@@ -66,7 +66,7 @@ stack<transactions> DigitalWalletSystem::SystemTransactions;
 		 password = hashing(password);
 		 if (!(mapOfUsers[username].getpassword() == password)) {
 			 cout << "Incorrect Password" << endl;
-			 cout << "Press E to exit or press any buttom to reenter Password";
+			 cout << "Press E to exit or press any buttom to reenter Password. ";
 			 char s;
 			 cin >> s;
 			 if (s == 'E' || s == 'e') {

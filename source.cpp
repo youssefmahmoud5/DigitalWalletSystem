@@ -56,7 +56,7 @@ int main() {
                 DigitalWalletSystem::SignUp();
             }
             else {
-                cout << "Invalid user menu choice." << endl;
+                cout << "Invalid user menu choice. " << endl;
             }
             break;
         }
@@ -66,7 +66,7 @@ int main() {
             f.saveUsersToFile(DigitalWalletSystem::mapOfUsers);
             break;
         default:
-            cout << "Invalid main menu choice." << endl;
+            cout << "Invalid main menu choice. " << endl;
         }
 
     } while (choice != 0);
