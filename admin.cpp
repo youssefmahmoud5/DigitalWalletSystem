@@ -59,21 +59,82 @@ void admin::viewUsers()
     }
 
     cout << "All Users:" << endl;
+	cout << "Press 1 to View Activated Users" << endl;
+	cout << "Press 2 to View Suspended Users" << endl;
+	cout << "Press 3 to View Deleted Users" << endl;
+	int choice;
+	bool repeat;
+	do {
+		repeat = false;
+		cin >> choice;
+		if (cin.fail()) {
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			cout << "Invalid input. Please enter a valid integer. " << endl;
+			repeat = true;
+		}
+		else if (choice < 1 || choice >3) {
+			cout << "Invalid input. Please enter a valid integer. " << endl;
+			repeat = true;
+		}
+	} while (repeat);
     for (const auto& pair : DigitalWalletSystem::mapOfUsers) {
-        cout << "Username: " << pair.first << endl;
-        cout << "Name: " << pair.second.Firstname << " " << pair.second.Lastname << endl;
-        cout << "PhoneNUmber: " << pair.second.phonenumber << endl;
-		if (!pair.second.isDeleted) {
-			cout << "Not Deleted" << endl;
+		
+		if (choice == 1) {
+			if (pair.second.isDeleted == false && pair.second.isSuspended == false) {
+				cout << "Username: " << pair.first << endl;
+				cout << "Name: " << pair.second.Firstname << " " << pair.second.Lastname << endl;
+				cout << "PhoneNUmber: " << pair.second.phonenumber << endl;
+				if (!pair.second.isDeleted) {
+					cout << "Not Deleted" << endl;
+				}
+				else {
+					cout << "Deleted" << endl;
+				}
+				if (!pair.second.isSuspended) {
+					cout << "Not Suspended" << endl;
+				}
+				else {
+					cout << "Suspended" << endl;
+				}
+			}
+		}else if (choice == 2) {
+			if (pair.second.isSuspended == true) {
+				cout << "Username: " << pair.first << endl;
+				cout << "Name: " << pair.second.Firstname << " " << pair.second.Lastname << endl;
+				cout << "PhoneNUmber: " << pair.second.phonenumber << endl;
+				if (!pair.second.isDeleted) {
+					cout << "Not Deleted" << endl;
+				}
+				else {
+					cout << "Deleted" << endl;
+				}
+				if (!pair.second.isSuspended) {
+					cout << "Not Suspended" << endl;
+				}
+				else {
+					cout << "Suspended" << endl;
+				}
+			}
 		}
-		else {
-			cout << "Deleted" << endl;
-		}
-		if (!pair.second.isSuspended) {
-			cout << "Not Suspended" << endl;
-		}
-		else {
-			cout << "Suspended" << endl;
+		else if (choice == 3) {
+			if (pair.second.isDeleted == true) {
+				cout << "Username: " << pair.first << endl;
+				cout << "Name: " << pair.second.Firstname << " " << pair.second.Lastname << endl;
+				cout << "PhoneNUmber: " << pair.second.phonenumber << endl;
+				if (!pair.second.isDeleted) {
+					cout << "Not Deleted" << endl;
+				}
+				else {
+					cout << "Deleted" << endl;
+				}
+				if (!pair.second.isSuspended) {
+					cout << "Not Suspended" << endl;
+				}
+				else {
+					cout << "Suspended" << endl;
+				}
+			}
 		}
         DigitalWalletSystem::mapOfUsers[pair.first].TransactionsHistory();
     }
@@ -106,7 +167,6 @@ void admin::editAccounts()
 	} while (repeat);
 	string newname;
 	string ltname;
-	if (choice == 2) {
 		cout << "Enter username to edit: ";
 		cin >> uname;
 
@@ -115,7 +175,7 @@ void admin::editAccounts()
 			cout << "User not found." << endl;
 			return;
 		}
-	}
+	
 	switch (choice) {
 	case 1:
 		DigitalWalletSystem::SignUp();
@@ -195,7 +255,7 @@ void admin::editAccounts()
 		break;
 	case 4:
 		if (DigitalWalletSystem::mapOfUsers[uname].isDeleted) {
-			cout << "The account is account was already deleted suspended..." << endl;
+			cout << "The account was already deleted..." << endl;
 		}
 		else {
 			cout << "The account is Activated...Do you want to Delete the account" << endl;
@@ -204,6 +264,7 @@ void admin::editAccounts()
 			cin >> c;
 			if (c == 'Y' || c == 'y') {
 				DigitalWalletSystem::mapOfUsers[uname].isDeleted = true;
+				cout << "The Account is deleted";
 			}
 		}
 		break;
