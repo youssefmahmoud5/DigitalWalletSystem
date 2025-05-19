@@ -11,6 +11,9 @@ public:
 	void viewUsers();
 	void editAccounts();
 	void viewTransactions();
+	void AddUsers();
+	void SuspendationStatus();
+	void deleteAccount();
 
 };
 
